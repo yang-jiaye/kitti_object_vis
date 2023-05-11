@@ -215,7 +215,11 @@ def show_image_with_boxes(img, objects, calib, show3d=True, depth=None):
             (0, 255, 255),
             2,
         )
-        box3d_pts_2d, _ = utils.compute_box_3d(obj, calib.P)
+        t_cam = obj.t
+        obj.t = calib.project_rect_to_velo([obj.t])[0]
+        _, box3d_pts_3d = utils.compute_box_3d_velo(obj, calib.P)
+        obj.t = t_cam
+        box3d_pts_2d = calib.project_velo_to_image(box3d_pts_3d)
         if box3d_pts_2d is None:
             print("something wrong in the 3D box.")
             continue
@@ -425,8 +429,12 @@ def show_lidar_with_depth(
         if obj.type == "DontCare":
             continue
         # Draw 3d bounding box
-        _, box3d_pts_3d = utils.compute_box_3d(obj, calib.P)
-        box3d_pts_3d_velo = calib.project_rect_to_velo(box3d_pts_3d)
+        # _, box3d_pts_3d = utils.compute_box_3d(obj, calib.P)
+        # box3d_pts_3d_velo = calib.project_rect_to_velo(box3d_pts_3d)
+        t_cam = obj.t
+        obj.t = calib.project_rect_to_velo([obj.t])[0]
+        _, box3d_pts_3d_velo = utils.compute_box_3d_velo(obj, calib.P)
+        obj.t = t_cam
         print("box3d_pts_3d_velo:")
         print(box3d_pts_3d_velo)
 
