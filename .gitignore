@@ -3,3 +3,7 @@ imgs
 *.pdf
 *.png
 __pycache__/
+bin
+pcd
+data
+test
