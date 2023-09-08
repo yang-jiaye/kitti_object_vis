@@ -64,7 +64,8 @@ class kitti_object(object):
 
     def get_image(self, idx):
         assert idx < self.num_samples
-        img_filename = os.path.join(self.image_dir, "%06d.png" % (idx))
+        ## TODO here jpg
+        img_filename = os.path.join(self.image_dir, "%06d.jpg" % (idx))
         return utils.load_image(img_filename)
 
     def get_lidar(self, idx, dtype=np.float32, n_vec=4):
@@ -773,7 +774,8 @@ def dataset_viz(root_dir, args):
             print("no pred file")
             # objects_pred[0].print_object()
 
-        n_vec = 4
+        # TO DO: pointcloud without intensity
+        n_vec = 3
         if args.pc_label:
             n_vec = 5
 
@@ -900,9 +902,9 @@ if __name__ == "__main__":
         "-d",
         "--dir",
         type=str,
-        default="data/object",
+        default="data/dair",
         metavar="N",
-        help="input  (default: data/object)",
+        help="input",
     )
     parser.add_argument(
         "-i",
@@ -910,7 +912,7 @@ if __name__ == "__main__":
         type=int,
         default=0,
         metavar="N",
-        help="input  (default: data/object)",
+        help="0",
     )
     parser.add_argument(
         "-p", "--pred", action="store_true", help="show predict results"

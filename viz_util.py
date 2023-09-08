@@ -178,7 +178,7 @@ def draw_lidar(
     print("====================", pc.shape)
     if fig is None:
         fig = mlab.figure(
-            figure=None, bgcolor=bgcolor, fgcolor=None, engine=None, size=(1600, 1000)
+            figure=None, bgcolor=None, fgcolor=None, engine=None, size=(1600, 1000)
         )
     if color is None:
         color = pc[:, 2]
@@ -194,7 +194,7 @@ def draw_lidar(
         color,
         color=pts_color,
         mode=pts_mode,
-        colormap="gnuplot",
+        colormap="cool",
         scale_factor=pts_scale,
         figure=fig,
     )
@@ -321,7 +321,7 @@ def draw_gt_boxes3d(
     fig,
     color=(1, 1, 1),
     line_width=1,
-    draw_text=True,
+    draw_text=False,
     text_scale=(1, 1, 1),
     color_list=None,
     label=""
